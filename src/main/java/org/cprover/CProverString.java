@@ -403,11 +403,12 @@ public final class CProverString
     public static String ofCharArray(char value[], int offset, int count) {
         CProver.assume(value != null);
         CProver.assume(value.length - count >= offset
-                                   && offset >= 0 && count >= 0);
-        StringBuilder builder = new StringBuilder();
+                && offset >= 0 && count >= 0);
+        String result = CProver.nondetWithoutNull("");
+        CProver.assume(result.length() == count);
         for(int i = 0; i < count; i++) {
-            builder.append(value[offset + i]);
+            CProver.assume(result.charAt(i) == value[offset + i]);
         }
-        return builder.toString();
+        return result;
     }
 }
